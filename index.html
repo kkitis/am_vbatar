@@ -242,14 +242,7 @@
   <script>
     (function () {
       const splash = document.getElementById("intro-splash");
-      const splashKey = "vivek-portfolio-intro-seen";
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const hasSeenIntro = localStorage.getItem(splashKey) === "1";
-
-      if (hasSeenIntro) {
-        splash.remove();
-        return;
-      }
 
       document.body.classList.add("splash-active");
       requestAnimationFrame(() => splash.classList.add("show"));
@@ -260,7 +253,6 @@
       setTimeout(() => {
         splash.classList.add("hide");
         document.body.classList.remove("splash-active");
-        localStorage.setItem(splashKey, "1");
       }, splashDuration);
 
       setTimeout(() => {
