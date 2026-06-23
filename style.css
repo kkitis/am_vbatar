@@ -298,14 +298,48 @@ h1 {
   background: radial-gradient(circle at 20% 20%, #203563 0%, #070d1b 55%);
   display: grid;
   place-items: center;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.intro-splash.show {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.intro-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-glow--one {
+  width: 280px;
+  height: 280px;
+  background: #4f8cff;
+  top: 18%;
+  left: 12%;
+  animation: intro-glow-in 1.2s ease forwards, intro-float 5s ease-in-out 1.2s infinite;
+}
+
+.intro-glow--two {
+  width: 220px;
+  height: 220px;
+  background: #2a4f9e;
+  bottom: 14%;
+  right: 10%;
+  animation: intro-glow-in 1.4s ease 0.3s forwards, intro-float 6s ease-in-out 1.5s infinite reverse;
 }
 
 .intro-content {
+  position: relative;
+  z-index: 1;
   text-align: center;
-  animation: intro-pop 1.2s ease;
+  padding: 0 1.25rem;
 }
 
 .intro-eyebrow {
@@ -315,33 +349,161 @@ h1 {
   color: #8cb0ff;
   font-size: 0.75rem;
   font-weight: 700;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: intro-fade-up 0.9s ease 0.4s forwards;
 }
 
-.intro-content h2 {
+.intro-line {
+  width: 0;
+  height: 2px;
+  margin: 0.85rem auto;
+  background: linear-gradient(90deg, transparent, #4f8cff, transparent);
+  border-radius: 999px;
+  animation: intro-line-grow 1.1s ease 0.9s forwards;
+}
+
+.intro-name {
   margin: 0.35rem 0 0.25rem;
   font-size: clamp(2rem, 6vw, 3.2rem);
   line-height: 1.08;
+  opacity: 0;
+  transform: translateY(18px) scale(0.97);
+  animation: intro-name-in 1s ease 1.2s forwards;
 }
 
-.intro-content p {
+.intro-role {
   margin: 0;
   color: #cfdbff;
+  opacity: 0;
+  letter-spacing: 0.4px;
+  animation: intro-fade-up 0.9s ease 1.7s forwards;
+}
+
+.intro-progress {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(220px, 60vw);
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+  opacity: 0;
+  animation: intro-fade-in 0.6s ease 0.6s forwards;
+}
+
+.intro-progress-bar {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #4f8cff, #8cb0ff);
+  border-radius: inherit;
+  animation: intro-progress-fill 4.2s ease-in-out 0.8s forwards;
 }
 
 .intro-splash.hide {
   opacity: 0;
-  transform: scale(1.02);
+  transform: scale(1.03);
   pointer-events: none;
 }
 
-@keyframes intro-pop {
-  0% {
-    opacity: 0;
-    transform: translateY(16px) scale(0.98);
+.intro-splash.hide .intro-content {
+  animation: intro-content-out 0.9s ease forwards;
+}
+
+@keyframes intro-glow-in {
+  to {
+    opacity: 0.45;
   }
+}
+
+@keyframes intro-float {
+  0%,
   100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes intro-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes intro-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-line-grow {
+  to {
+    width: 72px;
+  }
+}
+
+@keyframes intro-name-in {
+  to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes intro-progress-fill {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes intro-content-out {
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-splash,
+  .intro-glow,
+  .intro-eyebrow,
+  .intro-line,
+  .intro-name,
+  .intro-role,
+  .intro-progress,
+  .intro-progress-bar {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .intro-splash.show {
+    opacity: 1;
+    transform: none;
+  }
+
+  .intro-eyebrow,
+  .intro-name,
+  .intro-role,
+  .intro-progress {
+    opacity: 1;
+    transform: none;
+  }
+
+  .intro-line {
+    width: 72px;
+  }
+
+  .intro-progress-bar {
+    width: 100%;
+  }
+
+  .intro-glow {
+    opacity: 0.3;
   }
 }
 

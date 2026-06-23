@@ -19,10 +19,16 @@
 </head>
 <body>
   <div id="intro-splash" class="intro-splash" role="status" aria-live="polite">
+    <div class="intro-glow intro-glow--one" aria-hidden="true"></div>
+    <div class="intro-glow intro-glow--two" aria-hidden="true"></div>
     <div class="intro-content">
       <p class="intro-eyebrow">Welcome</p>
-      <h2>Vivek Batar</h2>
-      <p>Azure Cloud Architect</p>
+      <div class="intro-line" aria-hidden="true"></div>
+      <h2 class="intro-name">Vivek Batar</h2>
+      <p class="intro-role">Azure Cloud Architect</p>
+    </div>
+    <div class="intro-progress" aria-hidden="true">
+      <span class="intro-progress-bar"></span>
     </div>
   </div>
 
@@ -248,7 +254,9 @@
       document.body.classList.add("splash-active");
       requestAnimationFrame(() => splash.classList.add("show"));
 
-      const splashDuration = prefersReducedMotion ? 700 : 2200;
+      const splashDuration = prefersReducedMotion ? 900 : 4500;
+      const exitDuration = prefersReducedMotion ? 400 : 900;
+
       setTimeout(() => {
         splash.classList.add("hide");
         document.body.classList.remove("splash-active");
@@ -257,7 +265,7 @@
 
       setTimeout(() => {
         splash.remove();
-      }, splashDuration + 700);
+      }, splashDuration + exitDuration);
     })();
 
     document.getElementById("year").textContent = new Date().getFullYear();
